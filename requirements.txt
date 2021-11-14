@@ -1,7 +1,8 @@
-requests
+requests==2.23.0
 wikipedia==1.4.0
-transformers
-spacy_universal_sentence_encoder
-streamlit
+transformers==4.12.3
+spacy-universal-sentence-encoder==0.4.3
+streamlit==1.2.0
 en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.2.0/en_core_web_lg-3.2.0-py3-none-any.whl
-flatten_json
+flatten-json==0.1.13
+pandas==1.1.5
