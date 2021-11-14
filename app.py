@@ -12,7 +12,9 @@ from ContextSimilarity import ContextSimilarity
 from MLModel import MLModel
 from flatten_json import flatten
 from spacy.lang.en import English
+import os
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 @st.cache(hash_funcs={spacy.lang.en.English:id})
 def load_models():
