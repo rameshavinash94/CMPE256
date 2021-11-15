@@ -13,9 +13,13 @@ from sentence_transformers import SentenceTransformer, util
 import re
 import os
 
-nlp = spacy.load('en_core_web_lg')
+@st.cache(hash_funcs={spacy.lang.en.English:id})
+def load_models():
+  nlp = spacy.load('en_core_web_lg')
+  model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+  return nlp,model
 
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+nlp, model = load_models()
 
 with st.form(key='my_form'):
     question = st.text_input('Type your query', 'who is mark zuckerberg?')
