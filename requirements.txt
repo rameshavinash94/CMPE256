@@ -7,3 +7,4 @@ streamlit==1.2.0
 en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.2.0/en_core_web_lg-3.2.0-py3-none-any.whl
 flatten-json==0.1.13
 pandas==1.1.5
+sentence_transformers
