@@ -2,7 +2,6 @@ requests==2.23.0
 wikipedia==1.4.0
 transformers==4.12.3
 tensorflow==2.7.0
-spacy-universal-sentence-encoder==0.4.3
 streamlit==1.2.0
 en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.2.0/en_core_web_lg-3.2.0-py3-none-any.whl
 flatten-json==0.1.13
