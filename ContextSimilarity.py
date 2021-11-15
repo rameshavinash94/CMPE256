@@ -1,24 +1,25 @@
 
-import spacy_universal_sentence_encoder
+from sentence_transformers import SentenceTransformer, util
 import spacy
 import pandas as pd
 from operator import itemgetter
 
 class ContextSimilarity:
-    def __init__(self,use_nlp):
-        self.use_nlp=use_nlp
+    def __init__(self,model):
+        self.model=model
         self.SimilarityScore=[]
         self.query=''
 
     def ContextSimilarity(self,query,contexts):
         #add doc1 to nlp1 object
         self.query=query
-        doc_1 = self.use_nlp(query)
+        Doc_1 = self.model.encode(query, convert_to_tensor=True)
+       
         for context in contexts:
-          #compute sentence semantic similarity between quesiton and contexts using Universal Sentence Encoder
-          doc_2=self.use_nlp(context)
-          similarity_rate=doc_1.similarity(doc_2)
-          self.SimilarityScore.append([context,similarity_rate])
+            Doc_2 = self.model.encode(contexts, convert_to_tensor=True)
+            cos_scores = util.pytorch_cos_sim(Doc_1, Doc_2)
+            similarity_rate = "{0}".format(cos_scores[0][0])
+            self.SimilarityScore.append([context,similarity_rate])
         return self.SimilarityScore
 
     def SortSimilarity(self,by='desc'):
