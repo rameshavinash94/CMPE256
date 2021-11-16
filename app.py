@@ -12,7 +12,7 @@ from flatten_json import flatten
 from sentence_transformers import SentenceTransformer, util
 import re
 import os
-import spacy.lang.en.English
+from spacy.lang.en import English
 
 @st.cache(hash_funcs={spacy.lang.en.English:id})
 def load_models():
