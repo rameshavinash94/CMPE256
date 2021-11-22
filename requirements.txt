@@ -7,3 +7,4 @@ en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_
 flatten-json==0.1.13
 pandas==1.1.5
 sentence_transformers
+spacy
