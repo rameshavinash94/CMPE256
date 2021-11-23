@@ -1,26 +1,26 @@
 
 import spacy
 import pandas as pd
+import spacy_universal_sentence_encoder
+import re
+import streamlit as st
+import requests
 from ContextExtraction import ContextExtraction
 from DocumentRetrival import DocumentRetrival
 from DataWrangling import DataWrangler
 from ContextSimilarity import ContextSimilarity
 from MLModel import MLModel
-import streamlit as st
-import requests
 from flatten_json import flatten
-from sentence_transformers import SentenceTransformer, util
-import re
-import os
 from spacy.lang.en import English
+
 
 @st.cache(hash_funcs={spacy.lang.en.English:id})
 def load_models():
   nlp = spacy.load('en_core_web_lg')
-  model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-  return nlp,model
+  use_nlp = spacy_universal_sentence_encoder.load_model('en_use_lg')
+  return nlp,use_nlp
 
-nlp, model = load_models()
+nlp, use_nlp = load_models()
 
 with st.form(key='my_form'):
     question = st.text_input('Type your query', 'who is mark zuckerberg?')
@@ -51,14 +51,20 @@ if submit_button:
   # convert to pandas df
   text = context_extract_obj.StoreFindingAsDf()
 
+  # store_results in csv for further reference
+  text.to_csv("Matching_Wiki_contexts.csv")
+
   #create a Data Wrangler object
   data_wrangler_obj = DataWrangler(nlp)
 
   #cleaned Dataframe
   cleaned_df = data_wrangler_obj.DataWranglerDf(text)
 
+  # store_results in csv for further reference
+  cleaned_df.to_csv("Cleaned_Wiki_contexts.csv")
+
   #create a Context Similarity object
-  context_similarity_obj = ContextSimilarity(model)
+  context_similarity_obj = ContextSimilarity(use_nlp)
 
   #find the Similarites of Different context
   con_list = context_similarity_obj.ContextSimilarity(query,cleaned_df['Wikipedia_Paragraphs'])
@@ -84,6 +90,7 @@ if submit_button:
   Results['Imageapi'] = 'https://en.wikipedia.org/w/api.php?action=query&titles='+ Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True) + '&prop=pageimages&format=json&pithumbsize=100'
   Results['Wiki_Page'] = 'https://en.wikipedia.org/wiki/' + Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True)
   Results['Wiki_Page'] = Results['Wiki_Page'].replace(" ", '_', regex=True)
+  Results.to_csv('final_results.csv')
   for index, row in Results.iterrows():
     st.markdown('**{0}**'.format(row['Prediction'].upper()))
     r = requests.get(row['Imageapi'])
