@@ -1,13 +1,16 @@
 import pandas as pd
-from transformers import pipeline
+from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 
 class MLModel:
     def __init__(self):
         self.roberta_findings=[]
+        self.model_name = "deepset/roberta-base-squad2"
+        self.model = AutoModelForQuestionAnswering.from_pretrained(model_name)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
 
     def RobertaModel(self,TopNDf,query):
-        #trying different exisiting pre trained models in hugging face
-        qa_pipeline = pipeline("question-answering",model="deepset/roberta-base-squad2",tokenizer="deepset/roberta-base-squad2", revision="v1.0")
+        #create QA pipeline
+        qa_pipeline = pipeline('question-answering', model=model_name, tokenizer=model_name)
         #looping through all context
         for x,context in enumerate(TopNDf['Context']):
           prediction = qa_pipeline({'context': context,'question': query})
