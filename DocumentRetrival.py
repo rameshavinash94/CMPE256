@@ -9,6 +9,7 @@ class DocumentRetrival:
     def UserInput(self,query=''):
         '''
         This Function is to get user query for document retrival
+        return: the user query
         '''
         if query=='':
           self.question=input("Enter the Query to Retrive Pages")
@@ -23,6 +24,7 @@ class DocumentRetrival:
     def PreprocessUserInput(self):
         '''
         This Function is to preprocess user input and extract only the nceesary POS prior passing user query document retrival
+        return:  preprocessed user query
         '''
         try:
             doc1 = self.nlp(self.question)
@@ -36,9 +38,16 @@ class DocumentRetrival:
     def Retrive(self, top_n=1):
         '''
         This Function returns top n Wikipedia Pages results based on user query
+        return: Top n Wikipedia Pages
         '''
         self.search_text = self.search_text.strip()
         search_results = wikipedia.search(self.search_text, results=top_n)
+
+        # if we are not able to find any pages for the user query, then wiki search suggestions are used to find relevant page.
+        if len(search_results)==0:
+          self.search_text = wikipedia.suggest(self.search_text)
+          search_results = wikipedia.search(self.search_text, results=top_n)
+        
         for docs in search_results:
             self.search_results_pages.append(wikipedia.page(docs,
                     auto_suggest=False))
