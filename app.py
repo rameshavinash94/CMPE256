@@ -102,6 +102,6 @@ if submit_button:
     for x,y in flat_json.items():
       if re.findall('https.*',str(y)):
         st.image(y)
-    st.markdown('_wiki:_ **{0}**'.format(row['Wiki_Page']))
+    st.markdown('_wiki:_ "**{0}**"'.format(row['Wiki_Page']))
     cont = '<p style="font-family:sans-serif; color:black; font-size: 8px;">{0}</p>'.format(row['Context'])
     st.write(cont,unsafe_allow_html=True)
