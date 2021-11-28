@@ -79,8 +79,10 @@ if submit_button:
   #find the Similarites of Different context
   con_list = context_similarity_obj.ContextSimilarity(query,cleaned_df['Wikipedia_Paragraphs'])
 
+  #conver to DF
   context_similarity_df = context_similarity_obj.ConvertToDf(con_list)
 
+  #merge dataframe to get wikipage info
   Merged_Df = context_similarity_obj.MergeDf(context_similarity_df,cleaned_df)
 
   #retreive top N rows from dataframe
@@ -97,10 +99,17 @@ if submit_button:
 
   #filtering only top N out of it.
   Results = ML_Model_obj.TopNDf(Final_DF,top_n=5)
+  
+  #creating image api for retrival and storing the wiki page, image url in a dataframe
   Results['Imageapi'] = 'https://en.wikipedia.org/w/api.php?action=query&titles='+ Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True) + '&prop=pageimages&format=json&pithumbsize=100'
   Results['Wiki_Page'] = 'https://en.wikipedia.org/wiki/' + Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True)
-  #Results['Wiki_Page'] = Results['Wiki_Page'].replace(" ", '_', regex=True)
+  Results['Wiki_Page'] = Results['Wiki_Page'].replace(" ", '%20', regex=True)
+  Results['Wiki_Page'] = Results['Wiki_Page'].replace(")", '&#41', regex=True)
+  
+  #store the results in dataframe
   #Results.to_csv('final_results.csv')
+  
+  #iterate over the results and print the output
   for index, row in Results.iterrows():
     st.markdown('**{0}**'.format(row['Prediction'].upper()))
     r = requests.get(row['Imageapi'])
@@ -109,6 +118,6 @@ if submit_button:
     for x,y in flat_json.items():
       if re.findall('https.*',str(y)):
         st.image(y)
-    st.markdown('_wiki:_ "**{0}**"'.format(row['Wiki_Page']))
+    st.markdown("_wiki:_ **{0}**".format(row['Wiki_Page']))
     cont = '<p style="font-family:sans-serif; color:black; font-size: 8px;">{0}</p>'.format(row['Context'])
     st.write(cont,unsafe_allow_html=True)
