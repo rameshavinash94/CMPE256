@@ -41,7 +41,6 @@ if submit_button:
 
   if len(pages == 0):
     st.error("kindly refine your Search, we are not able to find all relevant pages!!!!")
-    break
 
   #create a Extraction retrival object
   context_extract_obj = ContextExtraction(nlp)
