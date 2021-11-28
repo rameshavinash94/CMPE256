@@ -39,6 +39,12 @@ class DocumentRetrival:
         '''
         self.search_text = self.search_text.strip()
         search_results = wikipedia.search(self.search_text, results=top_n)
+        
+        # if we are not able to find any pages for the user query, then wiki search suggestions are used to find relevant page.
+        if len(search_results)==0:
+          self.search_text = wikipedia.suggest(self.search_text)
+          search_results = wikipedia.search(self.search_text, results=top_n)
+        
         for docs in search_results:
             self.search_results_pages.append(wikipedia.page(docs,
                     auto_suggest=False))
