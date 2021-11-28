@@ -95,7 +95,7 @@ if submit_button:
   #Results['Wiki_Page'] = Results['Wiki_Page'].replace(" ", '_', regex=True)
   #Results.to_csv('final_results.csv')
   for index, row in Results.iterrows():
-    st.markdown('**{0}**'.format(row['Prediction'].upper()))
+    st.markdown('### **{0}**'.format(row['Prediction'].upper()))
     r = requests.get(row['Imageapi'])
     test = r.json()
     flat_json = flatten(test)
