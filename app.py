@@ -22,10 +22,16 @@ def load_models():
 
 nlp, use_nlp = load_models()
 
-with st.form(key='my_form'):
-    question = st.text_input('Type your query', 'who is mark zuckerberg?')
-    submit_button = st.form_submit_button(label='Submit')
+#set page title
+st.set_page_config(page_title = 'Wiki QA', page_icon = "/content/favicon.ico", layout = 'wide', initial_sidebar_state = 'auto')
+#add logo image to the page
+st.image("https://raw.githubusercontent.com/rameshavinash94/CMPE256/main/WikiQA.png",width=100)
 
+#create a form for user_input
+with st.form(key='my_form'):
+    question = st.text_input('Type your Query', 'who is Mark Zuckerberg?')
+    submit_button = st.form_submit_button(label='Get Answers!')
+    
 if submit_button:
   #create a Document retrival object
   doc_retrive_obj = DocumentRetrival(nlp)
