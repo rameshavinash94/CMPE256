@@ -92,7 +92,7 @@ if submit_button:
   Results = ML_Model_obj.TopNDf(Final_DF,top_n=5)
   Results['Imageapi'] = 'https://en.wikipedia.org/w/api.php?action=query&titles='+ Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True) + '&prop=pageimages&format=json&pithumbsize=100'
   Results['Wiki_Page'] = 'https://en.wikipedia.org/wiki/' + Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True)
-  Results['Wiki_Page'] = Results['Wiki_Page'].replace(" ", '_', regex=True)
+  #Results['Wiki_Page'] = Results['Wiki_Page'].replace(" ", '_', regex=True)
   #Results.to_csv('final_results.csv')
   for index, row in Results.iterrows():
     st.markdown('**{0}**'.format(row['Prediction'].upper()))
