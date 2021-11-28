@@ -103,6 +103,8 @@ if submit_button:
   #creating image api for retrival and storing the wiki page, image url in a dataframe
   Results['Imageapi'] = 'https://en.wikipedia.org/w/api.php?action=query&titles='+ Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True) + '&prop=pageimages&format=json&pithumbsize=100'
   Results['Wiki_Page'] = 'https://en.wikipedia.org/wiki/' + Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True)
+  
+  #make regex changes to avoid url link breaks for wiki page redirection
   Results['Wiki_Page'] = Results['Wiki_Page'].replace(" ", '%20', regex=True)
   Results['Wiki_Page'] = Results['Wiki_Page'].replace(")", '&#41', regex=True)
   
