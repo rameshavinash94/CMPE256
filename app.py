@@ -23,9 +23,9 @@ def load_models():
 nlp, use_nlp = load_models()
 
 #set page title
-st.set_page_config(page_title = 'Wiki QA', page_icon = "/content/favicon.ico", layout = 'wide', initial_sidebar_state = 'auto')
+st.set_page_config(page_title = 'Wiki QA', page_icon = "https://raw.githubusercontent.com/rameshavinash94/CMPE256/master/favicon.ico", layout = 'wide', initial_sidebar_state = 'auto')
 #add logo image to the page
-st.image("https://raw.githubusercontent.com/rameshavinash94/CMPE256/main/WikiQA.png",width=100)
+st.image("https://raw.githubusercontent.com/rameshavinash94/CMPE256/master/WikiQA.png",width=100)
 
 #create a form for user_input
 with st.form(key='my_form'):
