@@ -55,7 +55,7 @@ if submit_button:
   text = context_extract_obj.StoreFindingAsDf()
 
   # store_results in csv for further reference
-  text.to_csv("Matching_Wiki_contexts.csv")
+  #text.to_csv("Matching_Wiki_contexts.csv")
 
   #create a Data Wrangler object
   data_wrangler_obj = DataWrangler(nlp)
@@ -64,7 +64,7 @@ if submit_button:
   cleaned_df = data_wrangler_obj.DataWranglerDf(text)
 
   # store_results in csv for further reference
-  cleaned_df.to_csv("Cleaned_Wiki_contexts.csv")
+  #cleaned_df.to_csv("Cleaned_Wiki_contexts.csv")
 
   #create a Context Similarity object
   context_similarity_obj = ContextSimilarity(use_nlp)
@@ -92,8 +92,8 @@ if submit_button:
   Results = ML_Model_obj.TopNDf(Final_DF,top_n=5)
   Results['Imageapi'] = 'https://en.wikipedia.org/w/api.php?action=query&titles='+ Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True) + '&prop=pageimages&format=json&pithumbsize=100'
   Results['Wiki_Page'] = 'https://en.wikipedia.org/wiki/' + Results['Wiki_Page'].astype('str').str.extract(pat = "('.*')").replace("'", '', regex=True)
-  Results['Wiki_Page'] = Results['Wiki_Page'].replace(" ", '_', regex=True)
-  Results.to_csv('final_results.csv')
+  #Results['Wiki_Page'] = Results['Wiki_Page'].replace(" ", '_', regex=True)
+  #Results.to_csv('final_results.csv')
   for index, row in Results.iterrows():
     st.markdown('**{0}**'.format(row['Prediction'].upper()))
     r = requests.get(row['Imageapi'])
