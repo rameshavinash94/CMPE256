@@ -47,6 +47,7 @@ if submit_button:
   #call Retrive func with required top_n docs for retrival from Wiki
   pages = doc_retrive_obj.Retrive(3)
   
+  #if no pages are found, shoot out an error
   if len(pages) == 0:
     st.error("kindly refine your Search, we are not able to find all relevant pages!!!!")
 
