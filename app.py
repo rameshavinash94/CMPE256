@@ -14,6 +14,7 @@ from flatten_json import flatten
 from spacy.lang.en import English
 
 
+#cache the spacy and universal encoder models
 @st.cache(hash_funcs={spacy.lang.en.English:id})
 def load_models():
   nlp = spacy.load('en_core_web_lg')
