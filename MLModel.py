@@ -39,6 +39,6 @@ class MLModel:
     def TopNDf(self,Df,top_n=3):
         '''
         This Function finds the topN predictions on th dataframe
-        return: datafrmae with TopN findings
+        return: dataframe with TopN findings
         '''
         return Df.sort_values(by=['Score'], ascending=False).iloc[:top_n,]
