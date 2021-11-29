@@ -1,4 +1,4 @@
-
+#importing necessary libraries
 import spacy
 import pandas as pd
 import spacy_universal_sentence_encoder
