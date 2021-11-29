@@ -13,6 +13,8 @@ from MLModel import MLModel
 from flatten_json import flatten
 from spacy.lang.en import English
 
+#set page title
+st.set_page_config(page_title = 'Wiki QA', page_icon = "https://raw.githubusercontent.com/rameshavinash94/CMPE256/master/favicon.ico", layout = 'wide', initial_sidebar_state = 'auto')
 
 #cache the spacy and universal encoder models
 @st.cache(hash_funcs={spacy.lang.en.English:id})
@@ -24,8 +26,6 @@ def load_models():
 #load the models
 nlp, use_nlp = load_models()
 
-#set page title
-st.set_page_config(page_title = 'Wiki QA', page_icon = "https://raw.githubusercontent.com/rameshavinash94/CMPE256/master/favicon.ico", layout = 'wide', initial_sidebar_state = 'auto')
 #add logo image to the page
 st.image("https://raw.githubusercontent.com/rameshavinash94/CMPE256/master/WikiQA.png",width=100)
 
