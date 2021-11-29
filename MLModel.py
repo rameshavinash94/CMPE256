@@ -9,6 +9,10 @@ class MLModel:
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
 
     def RobertaModel(self,TopNDf,query):
+        '''
+        This Function runs the RobertaModel pretrained on the SQUAD2.0 dataset.
+        return: all the answers along with score with respect to query
+        '''
         #create QA pipeline
         qa_pipeline = pipeline('question-answering', model=self.model, tokenizer=self.tokenizer)
         #looping through all context
@@ -18,11 +22,23 @@ class MLModel:
         return self.roberta_findings
 
     def TopNFindings(self,top_n=3):
+        '''
+        This Function finds the topN predictions based on the query
+        return: TopN findings
+        '''
         return sorted(self.roberta_findings, key=itemgetter(1), reverse=True)[:top_n]
 
     def ConverttoDf(self):
+        '''
+        This Function converts the findings list to dataframe
+        return: dataframe
+        '''
         Converted_Df = pd.DataFrame(self.roberta_findings,columns=['Prediction','Score','Wiki_Page','Context'])
         return Converted_Df
 
     def TopNDf(self,Df,top_n=3):
+        '''
+        This Function finds the topN predictions on th dataframe
+        return: datafrmae with TopN findings
+        '''
         return Df.sort_values(by=['Score'], ascending=False).iloc[:top_n,]
