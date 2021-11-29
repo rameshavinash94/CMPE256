@@ -21,6 +21,7 @@ def load_models():
   use_nlp = spacy_universal_sentence_encoder.load_model('en_use_lg')
   return nlp,use_nlp
 
+#load the models
 nlp, use_nlp = load_models()
 
 #set page title
